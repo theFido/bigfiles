@@ -1,6 +1,8 @@
-use structopt::StructOpt;
 use std::fs;
+use std::path;
 use std::time::Instant;
+
+use structopt::StructOpt;
 
 const MB_FACTOR: u64 = 1024 * 1024;
 
@@ -79,11 +81,11 @@ fn list(original_path: String, only_folders: bool, tracker: &mut Tracker) {
 				let dir_entry = &path.unwrap();
 				if let Ok(metadata) = dir_entry.metadata() {
 					if metadata.is_dir() {
-						let fpath = format!("{}\\{}", original_path, dir_entry.file_name().into_string().unwrap());
+						let fpath = format!("{}{}{}", original_path, path::MAIN_SEPARATOR, dir_entry.file_name().into_string().unwrap());
 						list(fpath, only_folders, tracker);
 					} else {
 						if !only_folders {
-							let fpath = format!("{}\\{}", original_path, dir_entry.file_name().into_string().unwrap());
+							let fpath = format!("{}{}{}", original_path, path::MAIN_SEPARATOR, dir_entry.file_name().into_string().unwrap());
 							tracker.report(fpath, metadata.len());
 						}
 						folder_size += metadata.len();

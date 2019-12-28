@@ -1,6 +1,6 @@
 [package]
 name = "bigfiles"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Fido <fido07@yahoo.com.mx>"]
 edition = "2018"
 
